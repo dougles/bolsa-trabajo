@@ -28,6 +28,10 @@ export class CreateEmployeeDto {
   @IsString()
   puesto?: string;
 
+  @IsOptional()
+  @IsString()
+  empresa?: string;
+
   @IsInt()
   @Min(1)
   @Max(10)

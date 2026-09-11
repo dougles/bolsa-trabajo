@@ -34,7 +34,7 @@ export function LoginPage() {
     <div className="auth-page">
       <form className="auth-card" onSubmit={handleSubmit}>
         <h1>Iniciar sesión</h1>
-        <p className="auth-subtitle">Registro de Empleados</p>
+        <p className="auth-subtitle">Bolsa de Trabajo ICAM</p>
 
         <label className="field">
           <span>Usuario</span>

@@ -7,6 +7,7 @@ export interface Employee {
   apellido: string;
   profesion: string;
   puesto: string | null;
+  empresa: string | null;
   calificacion: number;
   comentario: string | null;
   createdAt: string;
@@ -27,6 +28,7 @@ export interface EmployeeFormValues {
   apellido: string;
   profesion: string;
   puesto?: string;
+  empresa?: string;
   calificacion: number;
   comentario?: string;
 }

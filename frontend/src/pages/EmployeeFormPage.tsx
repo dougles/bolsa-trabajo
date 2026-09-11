@@ -11,6 +11,7 @@ const EMPTY_FORM: EmployeeFormValues = {
   apellido: '',
   profesion: '',
   puesto: '',
+  empresa: '',
   calificacion: 5,
   comentario: '',
 };
@@ -36,6 +37,7 @@ export function EmployeeFormPage() {
           apellido: employee.apellido,
           profesion: employee.profesion,
           puesto: employee.puesto ?? '',
+          empresa: employee.empresa ?? '',
           calificacion: employee.calificacion,
           comentario: employee.comentario ?? '',
         });
@@ -57,6 +59,7 @@ export function EmployeeFormPage() {
       ...form,
       nombre: form.nombre?.trim() || undefined,
       puesto: form.puesto?.trim() || undefined,
+      empresa: form.empresa?.trim() || undefined,
       comentario: form.comentario?.trim() || undefined,
     };
 
@@ -141,6 +144,15 @@ export function EmployeeFormPage() {
               type="text"
               value={form.puesto}
               onChange={(e) => updateField('puesto', e.target.value)}
+            />
+          </label>
+
+          <label className="field">
+            <span>Empresa</span>
+            <input
+              type="text"
+              value={form.empresa}
+              onChange={(e) => updateField('empresa', e.target.value)}
             />
           </label>
 

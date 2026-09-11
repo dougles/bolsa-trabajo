@@ -26,6 +26,9 @@ export class Employee {
   @Column({ type: 'varchar', nullable: true })
   puesto!: string | null;
 
+  @Column({ type: 'varchar', nullable: true })
+  empresa!: string | null;
+
   @Column({ type: 'int' })
   calificacion!: number;
 

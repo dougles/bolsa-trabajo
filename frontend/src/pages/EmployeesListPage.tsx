@@ -78,7 +78,7 @@ export function EmployeesListPage() {
       <input
         type="search"
         className="search-input"
-        placeholder="Buscar por nombre, apellido o CI…"
+        placeholder="Buscar por nombre, apellido, CI, empresa o profesión…"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         aria-label="Buscar empleado"
@@ -99,6 +99,7 @@ export function EmployeesListPage() {
               <th>Apellido</th>
               <th>Profesión</th>
               <th>Puesto</th>
+              <th>Empresa</th>
               <th>Calificación</th>
               <th>Acciones</th>
             </tr>
@@ -111,6 +112,7 @@ export function EmployeesListPage() {
                 <td data-label="Apellido">{employee.apellido}</td>
                 <td data-label="Profesión">{employee.profesion}</td>
                 <td data-label="Puesto">{employee.puesto || '—'}</td>
+                <td data-label="Empresa">{employee.empresa || '—'}</td>
                 <td data-label="Calificación">
                   <span className="badge">{employee.calificacion}/10</span>
                 </td>

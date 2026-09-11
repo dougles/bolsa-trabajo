@@ -37,7 +37,7 @@ export class EmployeesService {
     if (query.search) {
       const search = `%${query.search}%`;
       qb.where(
-        'employee.ci LIKE :search OR employee.nombre LIKE :search OR employee.apellido LIKE :search',
+        'employee.ci LIKE :search OR employee.nombre LIKE :search OR employee.apellido LIKE :search OR employee.empresa LIKE :search OR employee.profesion LIKE :search',
         { search },
       );
     }
