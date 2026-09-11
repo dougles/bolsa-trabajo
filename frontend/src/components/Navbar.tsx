@@ -5,10 +5,6 @@ export function Navbar() {
   const { name, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  if (!isAuthenticated) {
-    return null;
-  }
-
   function handleLogout() {
     logout();
     navigate('/login', { replace: true });
@@ -25,12 +21,16 @@ export function Navbar() {
       </div>
 
 
-      <div className="navbar-user">
-        <span className="navbar-username">{name}</span>
-        <button type="button" className="btn btn-secondary" onClick={handleLogout}>
-          Cerrar sesión
-        </button>
-      </div>
+      {isAuthenticated ? (
+        <div className="navbar-user">
+          <span className="navbar-username">{name}</span>
+          <button type="button" className="btn btn-secondary" onClick={handleLogout}>
+            Cerrar sesión
+          </button>
+        </div>
+      ) : (<div className="navbar-user">
+        <span className="navbar-username"> Imprenta Soliz</span>
+      </div>)}
     </header>
   );
 }
