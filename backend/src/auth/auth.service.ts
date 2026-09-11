@@ -13,7 +13,7 @@ export class AuthService {
   async login(
     username: string,
     password: string,
-  ): Promise<{ accessToken: string; username: string }> {
+  ): Promise<{ accessToken: string; username: string; name: string | null }> {
     const user = await this.usersService.findByUsername(username);
     if (!user) {
       throw new UnauthorizedException('Usuario o contraseña incorrectos');
@@ -27,8 +27,9 @@ export class AuthService {
     const accessToken = await this.jwtService.signAsync({
       sub: user.id,
       username: user.username,
+      name: user.name,
     });
 
-    return { accessToken, username: user.username };
+    return { accessToken, username: user.username, name: user.name };
   }
 }

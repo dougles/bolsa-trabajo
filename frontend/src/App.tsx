@@ -25,7 +25,7 @@ export function App() {
             path="/empleados/nuevo"
             element={
               <ProtectedRoute>
-                <EmployeeFormPage />
+                <EmployeeFormPage mode="create" />
               </ProtectedRoute>
             }
           />
@@ -33,7 +33,15 @@ export function App() {
             path="/empleados/:id/editar"
             element={
               <ProtectedRoute>
-                <EmployeeFormPage />
+                <EmployeeFormPage mode="edit" />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/empleados/:id/ver"
+            element={
+              <ProtectedRoute>
+                <EmployeeFormPage mode="view" />
               </ProtectedRoute>
             }
           />

@@ -18,8 +18,12 @@ export class UsersService {
     return this.usersRepository.count();
   }
 
-  create(username: string, passwordHash: string): Promise<User> {
-    const user = this.usersRepository.create({ username, passwordHash });
+  create(username: string, passwordHash: string, name?: string): Promise<User> {
+    const user = this.usersRepository.create({ username, passwordHash, name: name ?? null });
     return this.usersRepository.save(user);
+  }
+
+  async updateName(id: number, name: string): Promise<void> {
+    await this.usersRepository.update(id, { name });
   }
 }

@@ -3,6 +3,7 @@ import { apiClient } from './client';
 export interface LoginResponse {
   accessToken: string;
   username: string;
+  name: string | null;
 }
 
 export function login(username: string, password: string) {
@@ -12,5 +13,7 @@ export function login(username: string, password: string) {
 }
 
 export function fetchMe() {
-  return apiClient.get<{ username: string }>('/auth/me').then((res) => res.data);
+  return apiClient
+    .get<{ username: string; name: string | null }>('/auth/me')
+    .then((res) => res.data);
 }

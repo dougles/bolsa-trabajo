@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export function Navbar() {
-  const { username, logout, isAuthenticated } = useAuth();
+  const { name, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   if (!isAuthenticated) {
@@ -26,7 +26,7 @@ export function Navbar() {
 
 
       <div className="navbar-user">
-        <span className="navbar-username">{username}</span>
+        <span className="navbar-username">{name}</span>
         <button type="button" className="btn btn-secondary" onClick={handleLogout}>
           Cerrar sesión
         </button>

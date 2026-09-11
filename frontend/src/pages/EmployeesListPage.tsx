@@ -6,6 +6,11 @@ import type { Employee } from '../api/employees';
 
 const PAGE_SIZE = 10;
 const SEARCH_DEBOUNCE_MS = 300;
+const EDITABLE_EMPRESA = 'IMPRENTA SOLIZ';
+
+function canManage(employee: Employee): boolean {
+  return (employee.empresa ?? '').trim().toUpperCase() === EDITABLE_EMPRESA;
+}
 
 export function EmployeesListPage() {
   const [search, setSearch] = useState('');
@@ -117,16 +122,25 @@ export function EmployeesListPage() {
                   <span className="badge">{employee.calificacion}/10</span>
                 </td>
                 <td data-label="Acciones" className="actions-cell">
-                  <Link to={`/empleados/${employee.id}/editar`} className="btn btn-secondary">
-                    Editar
+                  <Link to={`/empleados/${employee.id}/ver`} className="btn btn-secondary">
+                    Ver
                   </Link>
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={() => handleDelete(employee)}
-                  >
-                    Eliminar
-                  </button>
+                  {canManage(employee) ? (
+                    <>
+                      <Link to={`/empleados/${employee.id}/editar`} className="btn btn-secondary">
+                        Editar
+                      </Link>
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => handleDelete(employee)}
+                      >
+                        Eliminar
+                      </button>
+                    </>
+                  ) : (
+                    <span className="readonly-note">Solo lectura</span>
+                  )}
                 </td>
               </tr>
             ))}

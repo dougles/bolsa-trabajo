@@ -5,6 +5,8 @@ import { isAxiosError } from 'axios';
 import { createEmployee, fetchEmployee, updateEmployee } from '../api/employees';
 import type { EmployeeFormValues } from '../api/employees';
 
+export type EmployeeFormMode = 'create' | 'edit' | 'view';
+
 const EMPTY_FORM: EmployeeFormValues = {
   ci: '',
   nombre: '',
@@ -16,13 +18,15 @@ const EMPTY_FORM: EmployeeFormValues = {
   comentario: '',
 };
 
-export function EmployeeFormPage() {
+export function EmployeeFormPage({ mode = 'create' }: { mode?: EmployeeFormMode }) {
   const { id } = useParams<{ id: string }>();
-  const isEditing = Boolean(id);
+  const isEditing = mode === 'edit';
+  const isViewing = mode === 'view';
+  const readOnly = isViewing;
   const navigate = useNavigate();
 
   const [form, setForm] = useState<EmployeeFormValues>(EMPTY_FORM);
-  const [loading, setLoading] = useState(isEditing);
+  const [loading, setLoading] = useState(mode !== 'create');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -52,6 +56,7 @@ export function EmployeeFormPage() {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    if (readOnly) return;
     setError(null);
     setSubmitting(true);
 
@@ -91,10 +96,12 @@ export function EmployeeFormPage() {
     );
   }
 
+  const title = isViewing ? 'Ver empleado' : isEditing ? 'Editar empleado' : 'Nuevo empleado';
+
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1>{isEditing ? 'Editar empleado' : 'Nuevo empleado'}</h1>
+        <h1>{title}</h1>
       </div>
 
       <form className="employee-form" onSubmit={handleSubmit}>
@@ -105,6 +112,7 @@ export function EmployeeFormPage() {
               type="text"
               value={form.ci}
               onChange={(e) => updateField('ci', e.target.value)}
+              disabled={readOnly}
               required
             />
           </label>
@@ -115,6 +123,7 @@ export function EmployeeFormPage() {
               type="text"
               value={form.nombre}
               onChange={(e) => updateField('nombre', e.target.value)}
+              disabled={readOnly}
             />
           </label>
 
@@ -124,6 +133,7 @@ export function EmployeeFormPage() {
               type="text"
               value={form.apellido}
               onChange={(e) => updateField('apellido', e.target.value)}
+              disabled={readOnly}
               required
             />
           </label>
@@ -134,6 +144,7 @@ export function EmployeeFormPage() {
               type="text"
               value={form.profesion}
               onChange={(e) => updateField('profesion', e.target.value)}
+              disabled={readOnly}
               required
             />
           </label>
@@ -144,6 +155,7 @@ export function EmployeeFormPage() {
               type="text"
               value={form.puesto}
               onChange={(e) => updateField('puesto', e.target.value)}
+              disabled={readOnly}
             />
           </label>
 
@@ -153,6 +165,7 @@ export function EmployeeFormPage() {
               type="text"
               value={form.empresa}
               onChange={(e) => updateField('empresa', e.target.value)}
+              disabled={readOnly}
             />
           </label>
 
@@ -164,6 +177,7 @@ export function EmployeeFormPage() {
               max={10}
               value={form.calificacion}
               onChange={(e) => updateField('calificacion', Number(e.target.value))}
+              disabled={readOnly}
               required
             />
           </label>
@@ -173,6 +187,7 @@ export function EmployeeFormPage() {
             <textarea
               value={form.comentario}
               onChange={(e) => updateField('comentario', e.target.value)}
+              disabled={readOnly}
               rows={4}
             />
           </label>
@@ -186,11 +201,13 @@ export function EmployeeFormPage() {
             className="btn btn-secondary"
             onClick={() => navigate('/empleados')}
           >
-            Cancelar
+            {isViewing ? 'Volver' : 'Cancelar'}
           </button>
-          <button type="submit" className="btn btn-primary" disabled={submitting}>
-            {submitting ? 'Guardando…' : 'Guardar'}
-          </button>
+          {!isViewing && (
+            <button type="submit" className="btn btn-primary" disabled={submitting}>
+              {submitting ? 'Guardando…' : 'Guardar'}
+            </button>
+          )}
         </div>
       </form>
     </div>
