@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+*.log
+*.tsbuildinfo
+
+# Backend
+backend/data/*
+!backend/data/.gitkeep
+backend/.env
+
+# Frontend
+frontend/.env
+frontend/.env.local
