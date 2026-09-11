@@ -11,7 +11,7 @@ const EMPTY_FORM: EmployeeFormValues = {
   apellido: '',
   profesion: '',
   puesto: '',
-  empresa: '',
+  empresa: 'Imprenta Soliz',
   calificacion: 5,
   comentario: '',
 };
